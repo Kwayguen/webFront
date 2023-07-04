@@ -1,7 +1,23 @@
 <script>
     import Shop from "../../components/shop.svelte";
-</script>
-
-<main>
+    import { countPanier } from "../../store/store.js";
+  </script>
+  
+  <main>
     <Shop />
-</main>
+  
+    <div class="panier-counter">
+      <span>Panier: {countPanier}</span>
+    </div>
+  </main>
+  
+  <style>
+    .panier-counter {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background-color: #f2f2f2;
+      padding: 0.5rem;
+      border-radius: 5px;
+    }
+  </style>
