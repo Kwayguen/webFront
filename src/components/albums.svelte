@@ -14,7 +14,7 @@
   
   $: if(playlist.length > 5) console.log("panier trop gros")
 
-    // hook panier 
+    // hook panier
 
     // Méthodes du cycle de vie
     onMount(() => {

@@ -6,5 +6,6 @@
 	"/form": [
 		"src/routes/form/+page.server.ts"
 	],
-	"/settings": []
+	"/settings": [],
+	"/shop": []
 }
