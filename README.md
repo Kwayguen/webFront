@@ -91,7 +91,7 @@ Donc je commence par l'appel API avec un fetch puis je map le résultat dans une
 Ensuite j'affiche un bouton par élément de la liste, chaque bouton affiche une image dans le component placeholder => ```<Picture />``` qui est un component qui gère l'affichage d'une image.
 C'est tout pour le call API.
 <br>
-### Variables d'état
+## Variables d'état
 Dans react.js, pour utiliser une variable on doit passer par la fonction useState, pour accèder à l'état de la variable.<br>
 Pour la modifier il faut passer par une fonction qui va aller modifier l'état de la variable.
 ```typescript 
@@ -171,6 +171,24 @@ Et il faut intégrer la variable dans le fichier app.html :
 		<div style="display: contents">%sveltekit.body%</div>
 	</body>
 </html>
+```
+Ensuite pour l'afficher il faut importer le store, récupérer la valeur de la variable dans une page svelte et elle est utilisable dans cette page :
+```html
+<script lang="ts">
+  import { count } from '../store/store.js';
+
+  let countValue: any;
+  count.subscribe((value) => {
+    countValue = value;
+  });
+
+</script>
+<body>
+  <main>
+    <h1 class="font-bold text-xxl">Welcome to My Website</h1>
+    <h1>The count is {countValue}</h1>
+  </main>
+</body>
 ```
 
 <br>Finir changement de theme, mettre un useeffect<br> 

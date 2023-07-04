@@ -20,7 +20,7 @@ export const handle = (async ({ event, resolve }) => {
     }
 
     if (theme) {
-        console.log("ridden theme: " + theme);
+        console.log("supposed actual theme: " + theme);
         return await resolve(event, {
             transformPageChunk: ({ html }) =>
                 html.replace('data-theme=""', `data-theme="${theme}"`),

@@ -3,5 +3,8 @@
 		"src/routes/+page.server.ts"
 	],
 	"/catPick": [],
+	"/form": [
+		"src/routes/form/+page.server.ts"
+	],
 	"/settings": []
 }

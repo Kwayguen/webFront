@@ -3,6 +3,9 @@
 <script>
   import PicPicker from "./picPicker.svelte";
   
+
+  let panier = [];
+
   let menuOpen = false;
   function toggleMenu() {
       menuOpen = !menuOpen;
