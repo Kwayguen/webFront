@@ -193,7 +193,8 @@ Ensuite pour l'afficher il faut importer le store, récupérer la valeur de la v
 ## Maintenant je vais faire un "shop"
 ### Je vais récupérer une liste depuis une API, créer un panier pour y ajouter les objets de la liste dedans, et ajouter un effet lorsque le panier est plein
 
-Je commence par créer un dossier component dans src pour créer mon shop dedans.
+Je commence par créer un dossier component dans src pour créer mon shop dedans.<br>
+Une interface pour définir mes objets, et le call API pour les récupérer
 ```ts
 interface Album {
     id: number;
@@ -217,6 +218,109 @@ interface Album {
   // En créant le component, la liste d'objets est appelée depuis un API de fausses data
   onMount(() => fetchData());
   ```
+  ## Equivalent en react :
+  ```ts
+  interface Album {
+  id: number;
+  title: string;
+}
+
+const Products = () => {
+
+  const albums = useQuery({
+    queryKey: ["albums"],
+    queryFn: async (): Promise<Album[]> => {
+      const response = await fetch(
+        "https://jsonplaceholder.typicode.com/albums"
+      );
+      const data = (await response.json()) as Album[];
+
+      console.log(data);
+
+      return data;
+    },
+  });
+```
+Ensuite j'affiche la liste d'objet
+```html
+</script>
+<!-- J'ajoute simplement après mon script mon code html -->
+<div class="list-container">
+  {#if isLoading}
+    <div>Loading albums...</div>
+  {:else}
+    {#each albums as album}
+      <div class="list-item">
+        <span class="title">{album.title}</span>
+        <div class="buttons">
+          {#if $panier.includes(album.id)}
+            <button class="btn btn-sm btn-error" on:click={() => removeAlbum(album.id)}>Supprimer</button>
+          {:else}
+            <button class="btn btn-sm btn-success" on:click={() => addAlbum(album.id)}>Ajouter</button>
+          {/if}
+        </div>
+      </div>
+    {/each}
+  {/if}
+</div>
+```
+## Equivalent en react :
+```ts
+return (
+    <div style={{ marginTop: "4rem" }}>
+      {albums.data?.map((album) => (
+        <div key={album.id}>
+          {album.title}
+
+          {panier.indexOf(album.id) !== -1 && <button>Supprimer</button>}
+          {panier.indexOf(album.id) === -1 && (
+            <button onClick={() => addAlbum(album.id)}>Ajouter</button>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+```
+Pour finir j'ajoute la possibilité d'ajouter un objet au panier, et je fixe une limite à ce panier
+Dans un premier temps je créer mon panier de manière globale dans mon store
+```ts
+import { writable } from 'svelte/store';
+
+export const panier = writable(initialPanier);
+```
+Ensuite je l'importe dans mon component shop
+```ts
+import { panier } from '../store/store.js';
+const addAlbum = (id: number) => {
+    
+    if ($panier.length >= 5) {
+      alert("Attention, votre panier est trop gros");
+    } else {
+      panier.update((p) => [...p, id]);
+    }
+  };
+
+  const removeAlbum = (id: number) => {
+    panier.update((p) => p.filter((albumId) => albumId !== id));
+  };
+```
+## Equivalent en react (sans la variable globale) :
+```ts
+  useEffect(() => {
+    if (panier.length > 5) {
+      alert("Attention, votre panier est trop gros");
+    }
+  }, [panier]);
+
+  const addAlbum = (id: number) => {
+    setPanier((p) => [...p, id]);
+  };
+
+  if (albums.isLoading) {
+    return <div>Loading albums...</div>;
+  }
+```
+
 
 <br>Finir changement de theme, mettre un useeffect<br> 
 expliquez variable etat svelte fonctionnement du render
