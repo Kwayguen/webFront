@@ -17,7 +17,7 @@ export const dictionary = {
 		"/catPick": [3],
 		"/form": [~4],
 		"/settings": [5],
-		"/shop": [~6]
+		"/shop": [6]
 	};
 
 export const hooks = {

@@ -15,9 +15,11 @@
 <body>
   <main>
     <h1>Pick Cats Pics Page</h1>
-    <button on:click={toggleMenu} >{menuOpen}</button>
+    <button class="btn btn-primary" on:click={toggleMenu} >{menuOpen}</button>
     <section>
-      <PicPicker />
+      {#if menuOpen}
+        <PicPicker />
+      {/if}
     </section>
   </main>
 </body>

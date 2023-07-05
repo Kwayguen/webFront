@@ -21,9 +21,20 @@ Donc pour créer une page il faut un fichier +page.svelte dans son dossier, et i
     </div>
     <slot />
 </div>
-<style type="text/css">
 
-</style>
+<!-- J'ai appris plus tard que la bonne pratique est de définir ses routes -->
+<script lang="ts">
+  import { beforeNavigate } from "$app/navigation";
+	const navigation = [
+		{ label: "Home", href: "/" },
+		{ label: "Pricing", href: "/pricing" },
+		{ label: "Contacts", href: "/contacts" },
+		{ label: "Account", href: "/account" }
+	];
+	beforeNavigate((nav) => {
+
+	});
+</script>
 ```
 
 ### Exemple de routes sur React 
