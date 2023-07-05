@@ -1,11 +1,6 @@
 <script lang="ts">
     import { onMount, onDestroy, afterUpdate } from 'svelte';
   
-
-  /**
-   * 2 eme etape : passer le panier en global comme l'api context de react
-  */
-
     let playlist = [];
   
   $: if(playlist.length > 5) console.log("panier trop gros")
