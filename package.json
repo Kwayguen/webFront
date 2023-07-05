@@ -35,5 +35,9 @@
 		"vitest": "^0.25.3",
 		"zod": "^3.21.4"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"svelte-toast": "^1.0.0",
+		"sveltekit-flash-message": "^1.0.1"
+	}
 }

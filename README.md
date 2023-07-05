@@ -190,6 +190,33 @@ Ensuite pour l'afficher il faut importer le store, récupérer la valeur de la v
   </main>
 </body>
 ```
+## Maintenant je vais faire un "shop"
+### Je vais récupérer une liste depuis une API, créer un panier pour y ajouter les objets de la liste dedans, et ajouter un effet lorsque le panier est plein
+
+Je commence par créer un dossier component dans src pour créer mon shop dedans.
+```ts
+interface Album {
+    id: number;
+    title: string;
+  }
+
+  // let panier: number[] = [];
+  let albums: Album[] = [];
+  let isLoading = true;
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch("https://jsonplaceholder.typicode.com/albums");
+      albums = await response.json() as Album[];
+      isLoading = false;
+    } catch (error) {
+      console.error(error);
+      isLoading = false;
+    }
+  };
+  // En créant le component, la liste d'objets est appelée depuis un API de fausses data
+  onMount(() => fetchData());
+  ```
 
 <br>Finir changement de theme, mettre un useeffect<br> 
 expliquez variable etat svelte fonctionnement du render

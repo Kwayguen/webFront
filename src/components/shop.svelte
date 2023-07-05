@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { panier, countPanier } from '../store/store.js';
+  import { panier } from '../store/store.js';
 
   interface Album {
     id: number;
@@ -25,9 +25,11 @@
   onMount(() => fetchData());
 
   const addAlbum = (id: number) => {
-    panier.update((p) => [...p, id]);
-    if ($panier.length > 5) {
+    
+    if ($panier.length >= 5) {
       alert("Attention, votre panier est trop gros");
+    } else {
+      panier.update((p) => [...p, id]);
     }
   };
 
@@ -57,11 +59,11 @@
 
 <style>
   .list-container {
-    margin-top: 335vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
+    margin-top: 193rem;
   }
 
   .list-item {

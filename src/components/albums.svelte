@@ -3,10 +3,6 @@
   
 
   /**
-   * créer une liste d'albums depuis l'api jsonholder
-   * pouvoir ajouter un album dans le panier
-   * mets a jour la liste et grise ceux du panier
-   * 
    * 2 eme etape : passer le panier en global comme l'api context de react
   */
 
