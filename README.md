@@ -1,5 +1,6 @@
 # Rendu Web Avancé Front
 ### J'ai choisi pour ce module d'explorer la technologie sveltekit
+Sveltekit 1.0 est sorti en décembre 2022, c'est donc très récent et à beaucoup de marge de développement dans un futur proche.
 ## Dans un premier temps j'ai simplement fait une navbar me permettant de naviguer entre plusieurs page de mon site
 Donc j'ai vite découvert que contrairement a React.js le rootage est intégré dans SvelteKit, il suffit de créer sa page au bon endroit dans le fichier routes.
 Pour naviguer il suffit d'une balise `<a href="/folderName"></a>`
@@ -22,7 +23,7 @@ Donc pour créer une page il faut un fichier +page.svelte dans son dossier, et i
     <slot />
 </div>
 
-<!-- J'ai appris plus tard que la bonne pratique est de définir ses routes -->
+<!-- J'ai appris plus tard que la bonne pratique est de définir ses routes et de les sécuriser -->
 <script lang="ts">
   import { beforeNavigate } from "$app/navigation";
 	const navigation = [
@@ -39,6 +40,7 @@ Donc pour créer une page il faut un fichier +page.svelte dans son dossier, et i
 
 ### Exemple de routes sur React 
 ```tsx
+// il faut importer router-dom !!
 function App() {
   return (
     <Routes>
@@ -332,12 +334,15 @@ const addAlbum = (id: number) => {
   }
 ```
 
+# Ce que j'ai compris des différences entre Svelte et React pour la gestion du DOM
 
-<br>Finir changement de theme, mettre un useeffect<br> 
-expliquez variable etat svelte fonctionnement du render
-Contexte, variable globale, thème
-navbar
-changement de page -> log la page quittée et la page d'arrivée
-hook useEffect, lire/modifier variable globale déclenche un instruction/fonction
-gestions de formulaire
-rootage sur un produit : /product/1
+React créé une couche supplémentaire entre l'app et le DOM. React à sa propre représentation du DOM, lorsque qu'il est demandé de chargé les modifications, react est capable de déterminer les différences entre sa détermination du DOM et le DOM réél pour déterminer le nombre minimal de modifications à faire. React valide ensuite la manipulation.
+
+Svelte quand à lui ne créé pas sa propre représentation du DOM. Il arrive à directement déterminé quels sont les changements qui vont êtres apportés au DOM et écrit directement les méthodes pour modifier les DOM. Par exemple : createElement, setAttribute.
+<br>
+Svelte n'a pas besoin de chercher les différences entre deux moments, chaque mises à jour du DOM et découpé en micro tâches.
+<br>
+Ce fonctionnement permet d'éviter un défaut que beaucoup de gens font en React, des components très lourds peuvent être appelés à être recharger à chaque modifications du DOM inutilement. Alors que dans Svelte ils ne sont plus considéré comme composants mais fait directement partie de la page.
+
+### The End
+
